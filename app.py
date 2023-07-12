@@ -55,19 +55,6 @@ class HTTPHandler(BaseHTTPRequestHandler):
                 else:
                     self.send_html('error.html', 404)
 
-        '''if route.path == '/':
-            self.send_html('index.html')
-        elif route.path == '/message':
-            self.send_html('message.html')
-        elif route.path == '/blog':
-            self.send_html('blog.html')
-        else:
-            file = BASE_DIRECTION / route.path[1:]
-            if file.exists():
-                self.send_static(file)
-            else:
-                self.send_html('error.html', 404)'''
-
     def send_html(self, file_name: str, status_code: int = 200) -> None:
         self.send_response(status_code)
         self.send_header('Content-Type', 'text/html')
