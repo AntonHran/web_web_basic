@@ -1,0 +1,17 @@
+html {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+body {
+  flex: 1;
+}
+
+.container {
+  max-width: 960px;
+}
+
+textarea {
+  height: 250px;
+}
