@@ -89,15 +89,16 @@ def form_data(data: bytes) -> None:
     try:
         after_parsing: Dict[str, str] = {key: value for key, value in [el.split('=') for el in body.split('&')]}
         data: Dict[str, Dict[str]] = {datetime.now().strftime('%Y-%m-%d %H:%M:%S'): after_parsing}
+    except (ValueError, KeyError) as error:
+        logging.error(f'Field parse data {body} with error: {error}')
+    try:
         with open('storage/data.json', 'r', encoding='utf-8') as fr:
             total_data: Dict[str, Dict[str]] = json.load(fr)
         total_data.update(data)
         with open('storage/data.json', 'w', encoding='utf-8') as fw:
             json.dump(total_data, fw, ensure_ascii=False, indent=4)
-    except ValueError as error:
-        logging.error(f'Field parse data {body} with error: {error}')
     except OSError as error:
-        logging.error(f'Field write data {body} with error: {error}')
+        logging.error(f'Field read/write data {body} with error: {error}')
 
 
 def run(server_class: http.server, handler_class: HTTPHandler) -> None:
